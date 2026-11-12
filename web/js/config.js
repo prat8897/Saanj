@@ -1,11 +1,12 @@
 // 1. Create a Firebase project, add a Web app, paste its config below.
-// 2. Until you do, the app runs in DEMO mode (in-memory data, a scenario switcher) so you can see every screen.
+// 2. With a placeholder apiKey (YOUR_...) the app runs in DEMO mode (in-memory data, a scenario switcher) so you can see every screen.
 export const firebaseConfig = {
-  apiKey: 'YOUR_API_KEY',
-  authDomain: 'YOUR_PROJECT.firebaseapp.com',
-  projectId: 'YOUR_PROJECT',
-  messagingSenderId: 'YOUR_SENDER_ID',
-  appId: 'YOUR_APP_ID',
+  apiKey: 'AIzaSyAF1l9CiYZLtZ-1I6xEDYbCAefs_Nl-xIM', // public client key; access is enforced by firestore.rules
+  authDomain: 'saanj-a27ee.firebaseapp.com',
+  projectId: 'saanj-a27ee',
+  storageBucket: 'saanj-a27ee.firebasestorage.app',
+  messagingSenderId: '608819384819',
+  appId: '1:608819384819:web:7e0861fbf529cd19ae4286',
 };
 
 // Web push certificate key (Firebase console > Project settings > Cloud Messaging > Web Push certificates). Optional.
