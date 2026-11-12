@@ -1,0 +1,28 @@
+name: Weekly Saanj engine
+# Runs hourly. `weekly.js auto` reads the IST clock and does only what is due:
+# Mon 9 pm IST open shortlists, Wed noon close bids, then payments/backfill/release each hour.
+on:
+  schedule:
+    - cron: '7 * * * *'
+  workflow_dispatch:
+    inputs:
+      command:
+        description: 'auto | open | close | tick | cleanup'
+        default: auto
+
+jobs:
+  engine:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 20, cache: npm, cache-dependency-path: engine/package.json }
+      - run: npm install --no-audit --no-fund
+        working-directory: engine
+      - run: node weekly.js ${{ github.event.inputs.command || 'auto' }}
+        working-directory: engine
+        env:
+          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+          RAZORPAY_KEY_ID: ${{ secrets.RAZORPAY_KEY_ID }}
+          RAZORPAY_KEY_SECRET: ${{ secrets.RAZORPAY_KEY_SECRET }}
