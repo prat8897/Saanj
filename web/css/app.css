@@ -221,3 +221,6 @@ select option { background: var(--night-2); }
 
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
 @media (min-width: 720px) { .shell { padding: 0 8px; } }
+
+/* Continue looks quieter until the step is answered, but stays tappable so it can say what's missing */
+.btn.is-off { opacity: .55; }

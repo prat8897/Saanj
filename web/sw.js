@@ -1,5 +1,5 @@
 // Offline shell + push. Bump VERSION on each deploy so users get fresh files.
-const VERSION = 'saanj-v1';
+const VERSION = 'saanj-v2';
 const SHELL = ['/', '/index.html', '/css/app.css', '/manifest.webmanifest', '/icons/icon.svg'];
 
 self.addEventListener('install', e => {

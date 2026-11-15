@@ -8,6 +8,14 @@ import { TUNING } from '../shared/constants.js';
 import { legalSheet } from './legal.js';
 
 const KEY = 'saanj.draft.v1';
+const HINTS = {
+  role: 'Choose “I’m a woman” or “I’m a man” to continue.',
+  basics: 'Fill in your name, age (21+), what you do and your area.',
+  prefs: 'The “To” age must be at least the “From” age.',
+  evening: 'Pick a budget, at least one way of paying and one free slot.',
+  words: 'Write at least a few words (8 characters or more).',
+  verify: 'Add your profile link and a selfie, and tick all three boxes.',
+};
 
 async function shrink(file) {
   const img = await createImageBitmap(file);
@@ -127,8 +135,8 @@ export function view(ctx) {
   const back = h('button.btn.ghost', { type: 'button', onclick: () => { if (step > 0) { step--; save(); paint(); } else api.auth.signOut(); } }, 'Back');
   const cont = h('button.btn.primary', { type: 'button' }, 'Continue');
   const next = {
-    go: () => { if (!steps[step].valid()) return; if (step < steps.length - 1) { step++; save(); paint(); window.scrollTo(0, 0); } else submit(); },
-    refresh: () => { cont.disabled = !steps[step].valid(); },
+    go: () => { if (!steps[step].valid()) { toast(HINTS[steps[step].id] || 'Please answer to continue.'); return; } if (step < steps.length - 1) { step++; save(); paint(); window.scrollTo(0, 0); } else submit(); },
+    refresh: () => { const ok = !!steps[step].valid(); cont.classList.toggle('is-off', !ok); cont.setAttribute('aria-disabled', String(!ok)); },
   };
   cont.onclick = next.go;
   foot.append(back, cont);
@@ -143,7 +151,7 @@ export function view(ctx) {
   }
 
   async function submit() {
-    cont.disabled = true;
+    cont.disabled = true; cont.classList.remove('is-off');
     const { _step, ...rest } = d;
     try {
       await api.profile.create(user.uid, { ...rest, email: user.email || null, consent: { ...d.consent, at: Date.now() } });
