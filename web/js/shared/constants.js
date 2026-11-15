@@ -3,7 +3,7 @@ export const BRAND = {
   name: 'Saanj',
   tagline: 'One evening. One stranger. Every week.',
   city: 'Pune',
-  supportEmail: 'hello@example.com', // change me
+  supportEmail: 'prat8897@gmail.com',
 };
 
 export const TUNING = {

@@ -13,6 +13,6 @@ export const firebaseConfig = {
 export const VAPID_KEY = '';
 
 // Used when the engine has no Razorpay keys: the man pays by UPI and an admin confirms it.
-export const UPI = { vpa: 'yourname@upi', payee: 'Saanj' };
+export const UPI = { vpa: 'prat@rbl', payee: 'Saanj' };
 
 export const DEMO = new URLSearchParams(location.search).has('demo') || firebaseConfig.apiKey.startsWith('YOUR_');
